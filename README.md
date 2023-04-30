@@ -1,4 +1,4 @@
-# smart_batching
+# NYS-Batching
 
 A new Flutter project.
 
