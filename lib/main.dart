@@ -9,6 +9,7 @@ import 'package:smart_batching/screens/location_screen.dart';
 import 'package:smart_batching/screens/login_screen.dart';
 import 'package:smart_batching/screens/main_screen.dart';
 import 'package:smart_batching/screens/job_details_screen.dart';
+import 'package:smart_batching/screens/success_screen.dart';
 import 'package:smart_batching/screens/wishlist_screen.dart';
 import 'package:smart_batching/screens/job_by_category.dart';
 import 'package:smart_batching/screens/splash_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         JobDetailsScreen.id: (context) => const JobDetailsScreen(),
         ProductByCategory.id: (context) => const ProductByCategory(),
         HelpCenterScreen.id: (context) => const HelpCenterScreen(),
+        SuccessScreen.id: (context) => const SuccessScreen(),
       },
     );
   }
