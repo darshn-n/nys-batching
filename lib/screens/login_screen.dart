@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:smart_batching/constants/colors.dart';
 import 'package:smart_batching/screens/authentication/google_auth.dart';
 import 'package:smart_batching/services/phone_auth_services.dart';
@@ -86,12 +85,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Container(
             padding: const EdgeInsets.only(
-              left: 95,
-              top: 300,
+              left: 100,
+              top: 290,
             ),
             child: Image.asset(
               "assets/logo_login.png",
-              width: 200,
+              width: 150,
             ),
           ),
           SingleChildScrollView(
@@ -156,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 85,
                         ),
                         Text(
-                          " 2.0.0",
+                          " 1.0.0",
                           style: GoogleFonts.raleway(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
