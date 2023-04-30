@@ -123,6 +123,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     height: 20.0,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     controller: _toController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -139,7 +140,6 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     height: 20.0,
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     controller: _costController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
