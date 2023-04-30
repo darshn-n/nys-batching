@@ -10,7 +10,6 @@ import 'package:smart_batching/widgets/account_menu.dart';
 import 'package:smart_batching/widgets/logout_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// final Uri _blogurl = Uri.parse('https://www.google.com/');
 String? encodeQueryParameters(Map<String, String> params) {
   return params.entries
       .map((MapEntry<String, String> e) =>
@@ -116,8 +115,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   height: 30,
                 ),
                 AccountMenu(
-                  accountButtonIcon: Icons.person_outline_outlined,
-                  accountButtonText: 'Help Center',
+                  accountButtonIcon: Icons.app_registration_outlined,
+                  accountButtonText: 'Register My Vehicle',
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -130,9 +129,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 AccountMenu(
                   accountButtonIcon: Icons.verified_user_outlined,
                   accountButtonText: 'Privacy Policy',
-                  onPressed: () {
-                    _launchUrl(_privacyPolicy);
-                  },
+                  onPressed: () {},
                 ),
                 AccountMenu(
                   accountButtonIcon: Icons.bug_report_outlined,
