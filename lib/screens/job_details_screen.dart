@@ -38,6 +38,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Widget build(BuildContext context) {
     var productProvider = Provider.of<ProductProvider>(context);
     var data = productProvider.productData;
+    bool showBtn = true;
 
     return Scaffold(
       backgroundColor: kscreenBackground,
@@ -283,30 +284,50 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.fingerprint_outlined,
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Text(
-                      'Join Now',
+              child: showBtn
+                  ? ElevatedButton(
+                      onPressed: () {
+                        service.updateData(
+                          {
+                            "numberOfSeats": data["numberOfSeats"] - 1,
+                          },
+                          context,
+                          data["postID"],
+                        ).then(
+                          (value) => Navigator.pop(context),
+                        );
+                        setState(() {
+                          showBtn = false;
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.fingerprint_outlined,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text(
+                            'Join Now',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const Text(
+                      'You are Registered',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 15,
                         fontWeight: FontWeight.normal,
                       ),
                     ),
-                  ],
-                ),
-              ),
             ),
           ),
         ],

@@ -75,17 +75,14 @@ class ProductByCategory extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 50,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'New Recommendations',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'New Recommendations',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

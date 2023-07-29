@@ -30,6 +30,25 @@ class FirebaseService {
     );
   }
 
+  Future<void> updateData(Map<String, dynamic> data, context, String postID) {
+    return products.doc(postID).update(data).catchError(
+      (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Failed to Update',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<DocumentSnapshot> getUserData() async {
     DocumentSnapshot doc = await users.doc(user!.uid).get();
     return doc;
@@ -40,35 +59,4 @@ class FirebaseService {
     return doc;
   }
 
-  upDateFavourite(isLiked, productId, context) {
-    if (isLiked) {
-      products.doc(productId).update({
-        'favourites': FieldValue.arrayUnion([user!.uid]),
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(
-            milliseconds: 500,
-          ),
-          content: Text(
-            'Added to My Favourites',
-          ),
-        ),
-      );
-    } else {
-      products.doc(productId).update({
-        'favourites': FieldValue.arrayRemove([user!.uid]),
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(
-            milliseconds: 500,
-          ),
-          content: Text(
-            'Removed from My Favourites',
-          ),
-        ),
-      );
-    }
-  }
 }
