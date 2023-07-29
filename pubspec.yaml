@@ -34,12 +34,15 @@ dependencies:
   provider: ^6.0.3
   firebase_storage: ^11.1.1
   search_page: ^2.0.0+1
-  location: ^4.4.0
   rename: ^2.0.1
   animations: ^2.0.4
   double_back_to_close_app: ^2.1.0
   animate_do: ^3.0.2
   google_nav_bar: ^5.0.6
+  location: ^5.0.1
+  geocoding: ^2.1.0
+  permission_handler: ^10.4.3
+  
 
 dev_dependencies:
 

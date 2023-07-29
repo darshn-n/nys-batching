@@ -1,13 +1,15 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, unused_element, use_build_context_synchronously
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:location/location.dart' as loc;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:smart_batching/constants/colors.dart';
 import 'package:smart_batching/screens/main_screen.dart';
 import 'package:smart_batching/services/firebase_services.dart';
 import 'package:smart_batching/widgets/alert_dialog_box.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:location/location.dart';
 
 class LocationScreen extends StatefulWidget {
   static const id = "location-screen";
@@ -18,13 +20,54 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  Location location = Location();
   final FirebaseService _service = FirebaseService();
 
   String? countryValue = "";
   String? stateValue = "";
   String? cityValue = "";
   String? manualAddress;
+
+  loc.LocationData? locData;
+  bool loading = false;
+  List<Placemark>? placeMark;
+
+  void getPerm() async {
+    if (await Permission.location.isGranted) {
+      getLocation();
+      getAddress();
+    } else {
+      Permission.location.request();
+    }
+  }
+
+  void getLocation() async {
+    setState(() {
+      loading = true;
+    });
+    locData = await loc.Location.instance.getLocation();
+    setState(() {
+      loading = false;
+    });
+  }
+
+  void getAddress() async {
+    if (locData != null) {
+      placeMark = await placemarkFromCoordinates(
+        locData!.latitude!,
+        locData!.longitude!,
+      );
+    }
+
+    _service.updateUser({
+      "address":
+          "${placeMark![0].street}, ${placeMark![0].locality}, ${placeMark![0].country}",
+    }, context).then(
+      (value) => Navigator.pushNamed(
+        context,
+        MainScreen.id,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,12 +165,11 @@ class _LocationScreenState extends State<LocationScreen> {
                         if (value != null) {
                           _service.updateUser({
                             "address": manualAddress,
-                            "state": stateValue,
-                            "city": cityValue,
-                            "country": countryValue,
                           }, context).then(
-                            (value) =>
-                                Navigator.pushNamed(context, MainScreen.id),
+                            (value) => Navigator.pushNamed(
+                              context,
+                              MainScreen.id,
+                            ),
                           );
                         }
                       },
@@ -192,6 +234,28 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.all(10.0),
+          //   child: NeumorphicButton(
+          //     style: const NeumorphicStyle(
+          //       color: Colors.cyan,
+          //     ),
+          //     onPressed: () {
+          //       if (ConnectionState == ConnectionState.waiting) {
+          //         showAlertDialog(context);
+          //       }
+          //       getPerm();
+          //     },
+          //     child: Text(
+          //       'Allow Access',
+          //       style: GoogleFonts.raleway(
+          //         color: Colors.white,
+          //         fontSize: 18,
+          //         fontWeight: FontWeight.bold,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(
             height: 290.0,
           ),
